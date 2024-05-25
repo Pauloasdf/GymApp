@@ -5,14 +5,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { loadFonts } from "../assets/fonts/fonts.js"
 import { Fonts } from "@/constants/Fonts";
 import Wave from "@/components/Wave";
-import AnimatedButton from "../components/AnimatedButton.tsx";
-
+// import AnimatedButton from "../components/AnimatedButton.tsx";
+import { Colors, getColorGradient } from "@/constants/Colors";
 const introductionGuy = require("../assets/images/Introduction-people-1.png");
 
 const Index: React.FC = () => {
+
   const colorScheme = useColorScheme();
-  const colors = colorScheme === 'dark' ? ['#0d110e', '#3f4a47',] : ["#ecf1ed", "#B3BDB5"];
-  const invertedColors = colorScheme === 'dark' ? ["#ecf1ed", "#B3BDB5"] : ['#0d110e', '#3f4a47'];
+  const colors = getColorGradient(colorScheme, false);
+  const invertedColors = getColorGradient(colorScheme, true);
+
   const [fontsLoaded, setFontsLoaded] = useState(false);
   useEffect(() => {
     const loadAsyncFonts = async () => {
