@@ -41,7 +41,7 @@ export const Colors = {
     darkerColor: "#B3BDB5"
   },
   darkModeCustom: {
-    lighterColor: "#0d110e",
+    lighterColor: "#a3a7a4",
     darkerColor: "#3f4a47"
   }
 };

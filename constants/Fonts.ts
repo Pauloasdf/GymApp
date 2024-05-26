@@ -12,5 +12,13 @@ export const Fonts = {
         fontSize: 32,
         textAlign: "center",
         padding: 40
+    },
+    TabBar: {
+        fontName: "MontserratRegular",
+        fontSize: 32
+    },
+    TabBarActive: {
+        fontName: "MontserratExtraBold",
+        fontSize: 32
     }
 };

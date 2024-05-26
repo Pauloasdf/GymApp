@@ -4,6 +4,7 @@ import { Tabs } from "expo-router";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getColorGradient } from '@/constants/Colors';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { Fonts } from '@/constants/Fonts';
 
 const TabIcon = ({ color, name, size, focused, backgroundColor }) => {
   const animation = useSharedValue(1);
@@ -44,6 +45,7 @@ const TabsLayout = () => {
         tabBarStyle: {
           height: "10%",
           padding: 20,
+          marginTop:-200,
           borderTopLeftRadius: 30,
           borderTopEndRadius: 30,
           backgroundColor: backgroundColor,
@@ -63,6 +65,9 @@ const TabsLayout = () => {
               size={32}
               focused={focused}
               backgroundColor={backgroundColor} />
+          ),
+          tabBarLabelStyle: ({ focused }) => (
+            { fontSize: focused ? Fonts.TabBarActive.fontSize : Fonts.TabBar.fontSize }
           )
         }}
       />
@@ -91,6 +96,9 @@ const TabsLayout = () => {
               size={32}
               focused={focused}
               backgroundColor={backgroundColor} />
+          ),
+          tabBarLabelStyle: ({ focused }) => (
+            { fontSize: focused ? Fonts.TabBarActive.fontSize : Fonts.TabBar.fontSize }
           )
         }}
       />
