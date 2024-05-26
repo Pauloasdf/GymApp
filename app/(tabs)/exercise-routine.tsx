@@ -6,17 +6,6 @@ import { getColorGradient } from '@/constants/Colors';
 import legDayBanner from "../../assets/images/leg-day-banner.png";
 import CardItem from '@/components/CardItem';
 
-const Header = (iconsColor: string, headerBGColor: string) => {
-  return (
-    <View style={[styles.header, { backgroundColor: headerBGColor }]}>
-      <Ionicons name="menu-outline" size={28} color={iconsColor} />
-      <View style={styles.headerRight}>
-        <Ionicons name="notifications-outline" size={28} color={iconsColor} />
-        <Ionicons name="settings-outline" size={28} color={iconsColor} />
-      </View>
-    </View>
-  );
-};
 const Banner = () => {
   return (
     <View style={styles.banner}>
@@ -65,10 +54,6 @@ const ExerciseRoutine = () => {
   const colorScheme = useColorScheme();
   return (
     <View style={[styles.container, { backgroundColor: getColorGradient(colorScheme, false)[0] }]}>
-      <Header
-        iconsColor={getColorGradient(colorScheme, true)[0]}
-        headerBGColor={getColorGradient(colorScheme, true)[0]}
-      />
       <ScrollView>
         <Banner />
         <ExerciseList />
@@ -80,17 +65,6 @@ const ExerciseRoutine = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-  },
-  headerRight: {
-    flexDirection: 'row',
-    width: 80,
-    justifyContent: 'space-between',
   },
   banner: {
     marginTop: 20,
