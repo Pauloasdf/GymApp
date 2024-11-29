@@ -28,17 +28,16 @@ const TabIcon = ({ color, name, size, focused, backgroundColor }) => {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: animation.value }, { translateY: focused ? -10 : 0 }],
     backgroundColor: withTiming(focused ? backgroundColor : 'transparent', { duration: 300 }),
-    borderRadius: 25,
-    padding: focused ? 5 : 0,
-    borderBottomLeftRadius: focused ? 0 : 25,
-    borderBottomRightRadius: focused ? 0 : 25,
+    borderRadius: 50, // Increased border radius for smoother curve
+    padding: focused ? 10 : 0,
+    marginBottom: focused ? -20 : 0,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
   }));
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={[animatedStyle, focused && styles.focusedIcon]}>
       <MaterialIcons name={name} color={color} size={size} />
     </Animated.View>
   );

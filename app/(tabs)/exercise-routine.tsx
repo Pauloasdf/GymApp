@@ -65,10 +65,6 @@ const ExerciseRoutine = () => {
   const colorScheme = useColorScheme();
   return (
     <View style={[styles.container, { backgroundColor: getColorGradient(colorScheme, false)[0] }]}>
-      <Header
-        iconsColor={getColorGradient(colorScheme, true)[0]}
-        headerBGColor={getColorGradient(colorScheme, true)[0]}
-      />
       <ScrollView>
         <Banner />
         <ExerciseList />
