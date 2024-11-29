@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, useColorScheme, StyleSheet } from 'react-native';
+import { View, useColorScheme, StyleSheet, StatusBar } from 'react-native';
 import { Tabs } from "expo-router";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getColorGradient } from '@/constants/Colors';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { Fonts } from '@/constants/Fonts';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const TabIcon = ({ color, name, size, focused, backgroundColor }) => {
     const animation = useSharedValue(1);
@@ -39,10 +40,23 @@ const TabsLayout = (props) => {
         <Tabs
             screenOptions={{
                 headerShown: false,
+                header: () => (
+                    <View style={{ backgroundColor: props.backgroundColor }}>
+                        <View style={{ height: StatusBar.currentHeight || 24 }} />
+                        <View style={styles(props.backgroundColor).header}>
+                            <Ionicons name="menu-outline" size={28} color={props.invertedBackgroundColor} />
+                            <View style={styles(props.backgroundColor).headerRight}>
+                                <Ionicons name="notifications-outline" size={28} color={props.invertedBackgroundColor} />
+                                <Ionicons name="settings-outline" size={28} color={props.invertedBackgroundColor} />
+                            </View>
+                        </View>
+                    </View>
+                ),
                 tabBarLabelPosition: 'below-icon',
                 tabBarStyle: (props.isWeb && props.isWideScreen)
                     ? styles(props.backgroundColor).webTabBar
                     : styles(props.backgroundColor).mobileTabBar,
+                tabBarShowLabel: false,
                 tabBarInactiveTintColor: props.invertedBackgroundColor,
                 tabBarActiveTintColor: props.invertedBackgroundColor,
                 tabBarPosition: (props.isWeb && props.isWideScreen) ? 'left' : 'bottom',
@@ -77,10 +91,11 @@ const styles = (bgColor, focused = false) => StyleSheet.create({
     mobileTabBar: {
         height: "10%",
         padding: 20,
-        marginTop: -200,
         borderTopLeftRadius: 30,
         borderTopEndRadius: 30,
         backgroundColor: bgColor,
+        paddingBottom: "7%",
+        marginTop: -30,
     },
     webTabBar: {
         width: "10vw",
@@ -97,6 +112,14 @@ const styles = (bgColor, focused = false) => StyleSheet.create({
             ? Fonts.TabBarActive.fontSize
             : Fonts.TabBar.fontSize,
         marginVertical: 15,
+    },
+    focusedIcon: {
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+        marginHorizontal: -10,
+        padding: 5,
     },
 });
 
