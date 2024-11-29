@@ -9,10 +9,10 @@ import CardItem from '@/components/CardItem';
 const Header = (iconsColor: string, headerBGColor: string) => {
   return (
     <View style={[styles.header, { backgroundColor: headerBGColor }]}>
-      <Ionicons name="menu-outline" size={28} color={iconsColor} />
+      {/* <Ionicons name="menu-outline" size={28} color={iconsColor} /> */}
       <View style={styles.headerRight}>
         <Ionicons name="notifications-outline" size={28} color={iconsColor} />
-        <Ionicons name="settings-outline" size={28} color={iconsColor} />
+        {/* <Ionicons name="settings-outline" size={28} color={iconsColor} /> */}
       </View>
     </View>
   );
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
   },
   headerRight: {
     flexDirection: 'row',
-    width: 80,
-    justifyContent: 'space-between',
+    width: "100%",
+    justifyContent: 'flex-end',
   },
   banner: {
     marginTop: 20,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   exerciseList: {
     paddingHorizontal: 16,
-    marginTop: 20,
+    marginTop: 20
   },
   exerciseSummary: {
     flexDirection: 'row',

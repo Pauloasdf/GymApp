@@ -1,10 +1,20 @@
-import React from 'react';
-import { View, useColorScheme, StyleSheet } from 'react-native';
+import { React, useState, useEffect } from 'react';
+import { View, useColorScheme, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Tabs } from "expo-router";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { getColorGradient } from '@/constants/Colors';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { Fonts } from '@/constants/Fonts';
+import ReactNativeTab from "../../components/ReactNativeTab"
+import ExpoRouterTab from "../../components/ExpoRouterTab"
+
+const routes = [
+  { key: 'exercise-routine', title: 'Treinos', icon: 'sports-gymnastics' },
+  { key: 'calendar', title: 'Rotina', icon: 'calendar-month' },
+  { key: 'nutrition', title: 'Alimentação', icon: 'fastfood' },
+  { key: 'profile', title: 'Perfil', icon: 'person' },
+];
+
 
 const TabIcon = ({ color, name, size, focused, backgroundColor }) => {
   const animation = useSharedValue(1);
@@ -36,95 +46,47 @@ const TabIcon = ({ color, name, size, focused, backgroundColor }) => {
 
 const TabsLayout = () => {
   const colorScheme = useColorScheme();
+  const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
   const backgroundColor = getColorGradient(colorScheme, false)[1];
   const invertedBackgroundColor = getColorGradient(colorScheme, true)[0];
+  const isWeb = Platform.OS === 'web';
+
+  useEffect(() => {
+    const handleResize = ({ window }) => {
+      setScreenWidth(window.width);
+    };
+    const subscription = Dimensions.addEventListener('change', handleResize);
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const isWideScreen = screenWidth > 768;
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          height: "10%",
-          padding: 20,
-          marginTop:-200,
-          borderTopLeftRadius: 30,
-          borderTopEndRadius: 30,
-          backgroundColor: backgroundColor,
-        },
-        tabBarInactiveTintColor: invertedBackgroundColor,
-        tabBarActiveTintColor: invertedBackgroundColor
-      }}
-    >
-      <Tabs.Screen
-        name="exercise-routine"
-        options={{
-          title: "Treinos",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              color={invertedBackgroundColor}
-              name={'sports-gymnastics'}
-              size={32}
-              focused={focused}
-              backgroundColor={backgroundColor} />
-          ),
-          tabBarLabelStyle: ({ focused }) => (
-            { fontSize: focused ? Fonts.TabBarActive.fontSize : Fonts.TabBar.fontSize }
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="calendar"
-        options={{
-          title: "Rotina",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              color={invertedBackgroundColor}
-              name={'calendar-month'}
-              size={32}
-              focused={focused}
-              backgroundColor={backgroundColor} />
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="nutrition"
-        options={{
-          title: "Alimentação",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              color={invertedBackgroundColor}
-              name={'fastfood'}
-              size={32}
-              focused={focused}
-              backgroundColor={backgroundColor} />
-          ),
-          tabBarLabelStyle: ({ focused }) => (
-            { fontSize: focused ? Fonts.TabBarActive.fontSize : Fonts.TabBar.fontSize }
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Perfil",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              color={invertedBackgroundColor}
-              name={'person'}
-              size={32}
-              focused={focused}
-              backgroundColor={backgroundColor} />
-          )
-        }}
-      />
-    </Tabs>
+    <>
+      {(isWeb && isWideScreen)
+        ?
+        <ReactNativeTab
+          routes={routes}
+          isWeb={isWeb}
+          isWideScreen={isWideScreen}
+          backgroundColor={backgroundColor}
+          invertedBackgroundColor={invertedBackgroundColor}
+        />
+        :
+        <ExpoRouterTab
+          routes={routes}
+          isWeb={isWeb}
+          isWideScreen={isWideScreen}
+          backgroundColor={backgroundColor}
+          invertedBackgroundColor={invertedBackgroundColor}
+        />
+      }
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  iconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
 export default TabsLayout;
+
+
